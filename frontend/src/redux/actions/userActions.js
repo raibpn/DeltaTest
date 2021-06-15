@@ -23,6 +23,27 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
-export const removeUser = () => (dispatch) => {
-  dispatch({ type: actionTypes.DELETE_USER });
+
+export const createtUser = (users) => {
+    return {
+        type: actionTypes.CREATE_USER,
+        payload: users,
+
+    };
+};
+
+export const updateUsers = (users) => {
+    return {
+        type: actionTypes.UPDATE_USER,
+        payload: users,
+
+    };
+};
+
+export const deleteUsers = (users) => {
+    return {
+        type: actionTypes.DELETE_USER,
+        payload: users,
+
+    };
 };

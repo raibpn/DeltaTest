@@ -2,8 +2,6 @@ import './user.css';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-//Actions
-import { getUser } from '../../redux/actions/userActions';
 
 const User = ({ Id, firstName, lastName, email }) => {
   return (
