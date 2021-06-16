@@ -1,9 +1,11 @@
+const jwt = require('jsonwebtoken')
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { User } = require('../models/User');
 const express = require('express');
 const router = express.Router();
+const authConfig = require('config');
 
 router.post('/', async (req, res) => {
     //First Validate The HTTP Request
@@ -23,10 +25,16 @@ router.post('/', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) {
         return res.status(400).send('Incorrect email or password.');
+    } else {
+        // Insert the new user if they do not exist yet
+        user = new User(_.pick(req.body, ['firstName','lastName', 'email', 'password']));
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save();
+        const token = jwt.sign({ _id: user._id }, authConfig.get('PrivateKey'));
+        res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
     }
-
-    res.send(true);
-
+    
 });
 
 

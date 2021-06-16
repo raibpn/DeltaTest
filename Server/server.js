@@ -8,6 +8,12 @@ const connectDB = require("./config/db");
 connectDB();
 
 const auth = require('./routes/auth');
+const config = require('config');
+
+if (!config.get('PrivateKey'){
+    console.error('Error : Private Key not found.');
+    process.exit(1);
+})
 
 const app = express();
 
