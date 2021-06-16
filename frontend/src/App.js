@@ -4,12 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Components
 import Navbar from "./components/Navbar/navbar";
-import Login from "./components/Login/login";
-import SignUp from "./components/SignUp/signup";
-
-import User from "./components/User/User";
-import Home from "./components/LandingPage/HomePage";
-
+import Login from "./components/Login/Login";
+// import SignUp from "./components/SignUp/signup";
+import CreateUser from "./components/User/User";
+import HomeScreen from "./components/LandingPage/HomePage";
 
 function App() {
   return (
@@ -17,11 +15,9 @@ function App() {
       <Navbar />
       <main className="app">
         <Switch>
-          {/* <h1>hello from app</h1> */}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/sign-up" component={SignUp} />
-          <Route exact path="/user" component={User} />
+          <Route exact path="/" component={HomeScreen} />
+          <Route path="/login" component={Login} />
+          <Route path="/user" component={CreateUser} />
         </Switch>
       </main>
     </Router>

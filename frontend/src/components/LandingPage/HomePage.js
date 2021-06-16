@@ -2,9 +2,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// Components
-import User from "../User/User";
-
 //Actions
 import { getUsers as listUsers } from "../../redux/actions/userActions";
 
@@ -27,15 +24,9 @@ const HomeScreen = () => {
         ) : error ? (
           <h2>{error}</h2>
         ) : (
-          users.map((user) => (
-            <User
-              key={user._id}
-              productId={user._id}
-              firstName={user.name}
-              lastName={user.lasName}
-              email={user.email}
-            />
-          ))
+          users.map((user) => {
+            <p>{user.name}</p>
+          })
         )}
       </div>
     </div>

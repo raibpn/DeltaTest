@@ -17,7 +17,6 @@ class CreateUser extends Component {
       address: "",
       email: "",
       password: "",
-    
     };
   }
   componentDidMount() {
@@ -40,9 +39,7 @@ class CreateUser extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    this.props.createUser(postData).then(() => {
-      alert("User has been Successfully Created");
-    });
+    this.props.createUser(postData);
   };
 
   render() {
@@ -95,10 +92,10 @@ class CreateUser extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-      name: state.name,
-      address: state.address,
-      email: state.email,
-      password: state.password,
+  name: state.name,
+  address: state.address,
+  email: state.email,
+  password: state.password,
 });
 const mapDispatchToProps = (dispatch) => ({
   createUser: (data) => dispatch(createUser(data)),
