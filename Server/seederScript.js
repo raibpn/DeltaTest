@@ -6,8 +6,10 @@ const User = require("./models/User");
 
 connectDB();
 
+ //Importing scripted data to mongoDB
 const importData = async () => {
   try {
+    
     await User.deleteMany({});
 
     await User.insertMany(userData);

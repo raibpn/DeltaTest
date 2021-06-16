@@ -1,3 +1,6 @@
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+const mongoose = require('mongoose');
 require("dotenv").config();
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
@@ -13,6 +16,7 @@ app.use('/api/users', userRoutes )
 // app.get("/", (req, res) => {
 //   res.json({ message: "API running..." });
 // });
+
 
 app.use("/admin", adminRoutes);
 
