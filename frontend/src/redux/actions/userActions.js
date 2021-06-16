@@ -6,7 +6,7 @@ export const getUsers = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_USERS });
 
-    const { data } = await axios.get("/api/users");
+    const { data } = await axios.get(`/users`);
 
     dispatch({
       type: actionTypes.GET_USER_SUCCESS,
@@ -23,11 +23,11 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
-
 //Create user
 export const createUser = (postData) => async (dispatch) => {
+  console.log(postData);
   const user = [];
-  fetch("/users/create", {
+  fetch(`/users/create`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(postData),
