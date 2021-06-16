@@ -17,6 +17,10 @@ export const getUsersReducer = (state = { users: [] }, action) => {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.CREATE_USER:
+      return action.payload;
+    case actionTypes.DELETE_USER:
+      return state.filter((s) => s.user.id !== action.payload);
     default:
       return state;
   }

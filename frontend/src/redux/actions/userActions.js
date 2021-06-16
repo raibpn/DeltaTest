@@ -1,7 +1,7 @@
 import * as actionTypes from "../constants/userConstant";
 import axios from "axios";
 
-
+//Get users
 export const getUsers = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_USERS });
@@ -24,26 +24,44 @@ export const getUsers = () => async (dispatch) => {
 };
 
 
-export const createtUser = (users) => {
-    return {
+//Create user
+export const createUser = (postData) => async (dispatch) => {
+  const user = [];
+  fetch("/users/create", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(postData),
+  })
+    .then((res) => user.push(res))
+    .then(
+      dispatch({
         type: actionTypes.CREATE_USER,
-        payload: users,
-
-    };
+        payload: user,
+      })
+    );
 };
 
-export const updateUsers = (users) => {
-    return {
-        type: actionTypes.UPDATE_USER,
-        payload: users,
+//update
+export const updateUser = (id, user) => async (dispatch) => {
+  try {
+    const { data } = await axios.updateUser(id, user);
 
-    };
+    dispatch({ type: actionTypes.UPDATE_USER, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-export const deleteUsers = (users) => {
-    return {
+
+//delete user
+export const deleteUser = (user_id) => async (dispatch) => {
+  await axios
+    .delete(`/news/delete/${user_id}`)
+    .then((res) => res)
+    .then(
+      dispatch({
         type: actionTypes.DELETE_USER,
-        payload: users,
-
-    };
+        payload: user_id,
+      })
+    );
 };

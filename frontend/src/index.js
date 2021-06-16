@@ -4,16 +4,21 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { Provider } from "react-redux";
-import store from "./redux/store";
+import 'react-toastify/dist/ReactToastify.css';
+import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import store from './redux/store';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
-  document.getElementById("root")
-);
+            <Router>
+                <App />
+                <ToastContainer />
+            </Router>
+    </Provider>, document.getElementById('root'));
 
+serviceWorker.unregister();
 reportWebVitals();
