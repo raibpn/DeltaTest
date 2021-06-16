@@ -4,13 +4,13 @@ const Joi = require('joi');
 //user Schema all the users/companies that will be registering in the platform
 
 const User = mongoose.model('User', new mongoose.Schema({
-    firstName: {
+    name: {
         type: String,
         required: true,
         minlength: 5,
         maxlength: 50
          },
-    lastName: {
+    address: {
         type: String,
         required: true,
         minlength: 5,
@@ -28,7 +28,26 @@ const User = mongoose.model('User', new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 1024
+    },
+    active: {
+        type: Boolean
+    },
+    Phone_number: {
+        type: String
+    },
+    profile_pic: {
+        type: String
+    },
+    user_role_id: {
+        type: Number
+    },
+    zip_code: {
+        String
+    },
+    city: {
+        type: String
     }
+    
 }));
 
 function validateUser(user) {

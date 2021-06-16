@@ -7,7 +7,47 @@ const express = require('express');
 const router = express.Router();
 const authConfig = require('config');
 
-router.post('/', async (req, res) => {
+
+//validate user/pw
+function validate(req) {
+    const schema = {
+        email: Joi.string().min(5).max(255).required().email(),
+        password: Joi.string().min(5).max(255).required()
+    };
+
+    return Joi.validate(req, schema);
+}
+
+
+router.post('/login', async (req, res) => {
+
+    //First Validate The HTTP Request
+    const { error } = validate(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+
+    //find the user by their email address
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+        return res.status(400).send('Incorrect email or password.');
+    }
+
+    // Then validate the Credentials in MongoDB match
+    // those provided in the request
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) {
+        return res.status(400).send('Incorrect email or password.');
+    } else {
+        const token = jwt.sign({ _id: user._id }, process.env.PrivateKey);
+        res.header('auth-token', token)
+        res.redirect("/home");
+    }
+    
+});
+
+
+router.post('/register', async (req, res) => {
     //First Validate The HTTP Request
     const { error } = validate(req.body);
     if (error) {
@@ -38,14 +78,5 @@ router.post('/', async (req, res) => {
 });
 
 
-//validate user/pw
-function validate(req) {
-    const schema = {
-        email: Joi.string().min(5).max(255).required().email(),
-        password: Joi.string().min(5).max(255).required()
-    };
-
-    return Joi.validate(req, schema);
-}
 
 module.exports = router;
